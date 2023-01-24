@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base{
+  body{
+    background-color: rgb(245 245 245 / 46%); 
+  }
+}
+
+@layer components{
+  .btn{
+    @apply flex items-center justify-center  outline-none px-3 py-2 bg-green-600 text-white rounded-md font-medium border border-transparent transition-all;
+  
+  }
+
+  .btn.sm{
+    @apply min-w-max h-8 text-sm;
+  }
+
+  .btn.lg{
+    @apply  h-12 text-base min-w-[8rem];
+  }
+
+  .btn.delete{
+    @apply bg-red-600;
+  }
+
+  .card{
+    @apply bg-white rounded-lg shadow-md;
+  }
+}

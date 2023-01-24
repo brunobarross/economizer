@@ -2,7 +2,7 @@
 
 <template>
   <div class="">
-    <div v-if="route.path == '/'" class="sidebar bg-slate-500 min-h-screen w-[300px] fixed left-0"></div>
+    <!-- <div v-if="route.path == '/'" class="sidebar bg-slate-500 min-h-screen w-[300px] fixed left-0"></div> -->
      <TheHeader v-if="route.path == '/'" />
       <router-view></router-view>
     </div>
@@ -37,10 +37,8 @@ onMounted(async ()=>{
 
 </script>
 <style >
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 @import 'index.css';
 
-body{
-
-}
 
 </style>

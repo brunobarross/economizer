@@ -1,37 +1,104 @@
 <template>
-  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-      <tr>
-        <th scope="col" class="px-6 py-3">
-          Nome
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Tipo
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Data
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Valor
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          Apple MacBook Pro 17"
-        </th>
-        <td class="px-6 py-4">
-          Sliver
-        </td>
-        <td class="px-6 py-4">
-          Laptop
-        </td>
-        <td class="px-6 py-4">
-          $2999
-        </td>
-      </tr>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg tabela">
+    <table class="w-full text-sm text-left text-gray-500 rounded-md">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-4 w-[40%]">
+            Nome
+          </th>
+          <th scope="col" class="px-6 py-4">
+            Tipo
+          </th>
+          <th scope="col" class="px-6 py-4">
+            Data
+          </th>
+          <th scope="col" class="px-6 py-4">
+            Valor
+          </th>
+          <th scope="col" class="px-6 py-4">
+            Ações
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-white border-b" v-for="item in data">
+          <th scope="row" class="px-6 py-4 font-normal  whitespace-nowrap capitalize">
+            {{ item.nome }}
+          </th>
+          <td class="px-6 py-4">
+            {{ item.tipo }}
+          </td>
+          <td class="px-6 py-4">
+            {{ item.data }}
+          </td>
+          <td class="px-6 py-4" :class="item.tipo">
+            R$ {{ item.valor.toFixed(2).replace('.', ',') }}
+          </td>
+          <td class="px-6 py-4">
+            <button class="btn sm delete" @click="deleteItem(item.id)">Deletar</button>
+          </td>
+        </tr>
 
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </template>
+
+
+<script setup>
+import {ref, computed} from 'vue'
+
+import { doc, deleteDoc } from "firebase/firestore";
+import { database } from '../firebase';
+
+const refDatabase = db.collection('itens').doc();
+
+async function deleteItem(id){
+  console.log(id)
+  // await deleteDoc(doc(database, "itens", id));
+}
+
+
+
+
+
+
+const props = defineProps(['data'])
+
+
+// const timestampToDate = async (timestamp) => {
+//   const date = new Date(timestamp);
+//   console.log(date)
+//   date.toLocaleDateString('pt-BR')
+//   return date
+// }
+
+const tipoClass = computed(() => {
+  return props.data.tipo == 'receita' ? 'receita' : 'despesa'
+})
+
+
+</script>
+
+<style scoped>
+.tabela {
+  border: 1px solid #E6E6E6;
+}
+
+table td{
+  color: rgba(26, 26, 26, 1);
+  font-weight: 400;
+  font-size: .875rem !important;
+  text-transform: capitalize;
+
+
+}
+
+.receita{
+  color: green;
+}
+
+.despesa{
+  color: red;
+}
+</style>

@@ -56,18 +56,7 @@ import { useHomeStore } from '../store/home.store';
 
 const {data} = storeToRefs(useHomeStore())
 
-const emit = defineEmits(['removeu'])
-// const refDatabase = database.collection('itens').doc();
-
-async function deleteItem(id){
-  try{
-    await deleteDoc(doc(database, "itens", id));
-    data.value = data.value.filter(i => i.id !== id)
-  } catch(err){
-    console.log(err)
-  }
-
-}
+const {deleteItem} = useHomeStore();
 
 
 const props = defineProps(['data'])

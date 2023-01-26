@@ -57,11 +57,17 @@ export const useHomeStore = defineStore('homeStore', () => {
       })
   }
 
-  function updateSituation(val) {
-    console.log(val)
-    situacao.value = val
+  
+async function deleteItem(id){
+  try{
+    await deleteDoc(doc(database, "itens", id));
+  } catch(err){
+    console.log(err)
+  }
 
 }
 
-  return { getData, data,createNewItem,nome,tipo,valor,dataCriacao, updateSituation, situacao }
+
+
+  return { getData, data,createNewItem,nome,tipo,valor,dataCriacao,  situacao, deleteItem }
 })

@@ -4,8 +4,8 @@
     <div class="card p-6 !mt-8 md:!mt-16">
 
       <div class="header-card">
-        <p class="font-bold text-sm text-green-600">Novo cadastro</p>
-        <h3 class="font-bold text-2xl text-neutral-700 capitalize">{{ tipo }}</h3>
+        <p class="font-semibold text-sm text-green-600">Novo cadastro</p>
+        <h3 class="font-semibold text-2xl text-neutral-700 capitalize">{{ tipo }}</h3>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
         <div class="input-box">

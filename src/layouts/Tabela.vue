@@ -1,5 +1,5 @@
 <template>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg tabela">
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg tabela lg:-order-none order-2" >
     <table class="w-full text-sm text-left text-gray-500 rounded-md">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
@@ -47,20 +47,27 @@
 
 <script setup>
 import {ref, computed} from 'vue'
-
 import { doc, deleteDoc } from "firebase/firestore";
 import { database } from '../firebase';
+import { storeToRefs } from 'pinia';
+import { useHomeStore } from '../store/home.store';
 
-const refDatabase = db.collection('itens').doc();
+
+
+const {data} = storeToRefs(useHomeStore())
+
+const emit = defineEmits(['removeu'])
+// const refDatabase = database.collection('itens').doc();
 
 async function deleteItem(id){
-  console.log(id)
-  // await deleteDoc(doc(database, "itens", id));
+  try{
+    await deleteDoc(doc(database, "itens", id));
+    data.value = data.value.filter(i => i.id !== id)
+  } catch(err){
+    console.log(err)
+  }
+
 }
-
-
-
-
 
 
 const props = defineProps(['data'])
@@ -73,9 +80,6 @@ const props = defineProps(['data'])
 //   return date
 // }
 
-const tipoClass = computed(() => {
-  return props.data.tipo == 'receita' ? 'receita' : 'despesa'
-})
 
 
 </script>
@@ -85,7 +89,7 @@ const tipoClass = computed(() => {
   border: 1px solid #E6E6E6;
 }
 
-table td{
+table th, table td{
   color: rgba(26, 26, 26, 1);
   font-weight: 400;
   font-size: .875rem !important;

@@ -7,7 +7,7 @@ import Home from '../pages/Home.vue'
 import Register from '../pages/Register.vue'
 import Login from '../pages/Login.vue'
 import Tabela from '../layouts/Tabela.vue'
-import NovoItem from '../layouts/NovoItem.vue'
+import CadastroItem from '../pages/CadastroItem.vue'
 
 
 
@@ -18,6 +18,17 @@ const routes = [,
     name: 'Home',
     path: '/',
     component: Home,
+    meta: {
+      requireLogin: true
+    },
+
+    
+  },
+
+  {
+    name: 'Cadastro',
+    path: '/cadastro',
+    component: CadastroItem,
     meta: {
       requireLogin: true
     },
@@ -37,7 +48,7 @@ const routes = [,
 
     // },
   },
-  { path: '/register', component: Register }
+  { name: 'Register', path: '/register', component: Register }
 ]
 
 
@@ -61,6 +72,7 @@ function getCurrentUser() {
 }
 
 router.beforeEach(async (to, from, next) => {
+  console.log(to)
   if (to.matched.some(record => record.meta.requireLogin == true)) {
     if (await getCurrentUser()) {
       next()

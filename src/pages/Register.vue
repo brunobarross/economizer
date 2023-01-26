@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen grid grid-cols-2">
-    <div class="bg-green-600 w-full h-full "></div>
+  <div class="min-h-screen flex flex-col justify-center md:grid  md:grid-cols-2">
+    <div class="bg-green-600 w-full h-full  h-full hidden md:block"></div>
     <div class="area h-full flex flex-col items-center justify-center p-8">
       <div class="mx-auto max-w-[300px] w-full">
         <div class="input-box w-full">

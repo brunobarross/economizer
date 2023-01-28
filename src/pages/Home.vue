@@ -4,6 +4,7 @@
             <div class="flex flex-col mb-6 w-full">
                 <div class="flex justify-end">
                     <router-link to="/cadastro"> <button class="btn">Adicionar novo</button></router-link>
+  
 
                 </div>
             </div>
@@ -13,14 +14,15 @@
 
                     <div class="card p-6 sm">
                         <h3 class="text-lg font-medium text-neutral-500 ">Total de Receitas</h3>
-                        <p class="text-2xl font-bold text-neutral-700 mt-2"> <span class="text-base ">R$</span>  {{ totalReceita }}</p>
-                        
+                        <p class="text-2xl font-bold text-neutral-700 mt-2"> <span class="text-base ">R$</span> {{ totalReceita }}</p>
+
                     </div>
                     <div class="card p-6 sm">
                         <h3 class="text-lg font-medium text-neutral-500 ">Total de Despesas:</h3>
-                        <p  class="text-2xl font-bold text-neutral-700 mt-2"> 
-                            <span class="text-base ">R$</span>  {{ totalDespesas }}</p>
-                        
+                        <p class="text-2xl font-bold text-neutral-700 mt-2">
+                            <span class="text-base ">R$</span> {{ totalDespesas }}
+                        </p>
+
                     </div>
                     <div class="card p-6">
                         <h3 class="text-lg font-medium text-neutral-500">Saldo atual:</h3>
@@ -44,11 +46,13 @@ const { getData, updateSituation, situacao } = useHomeStore()
 
 const { data } = storeToRefs(useHomeStore())
 
+const { checkIfHasLogged } = useAuthStore()
 const { isAuthenticate, user } = storeToRefs(useAuthStore())
 
 
-onMounted(() => {
-    getData()
+onMounted(async () => {
+    await checkIfHasLogged()
+    await getData()
 })
 
 
@@ -93,7 +97,7 @@ const saldoAtual = computed(() => {
 }
 
 @media(max-width: 539px) {
-    .grid-home{
+    .grid-home {
         display: flex;
         flex-direction: column;
         align-items: stretch;

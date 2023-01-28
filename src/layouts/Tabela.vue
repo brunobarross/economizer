@@ -1,8 +1,8 @@
 <template>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg tabela lg:-order-none order-2" >
-    <table class="w-full text-sm text-left text-gray-500 rounded-md">
+  <div class="relative overflow-x-auto shadow-sm-custom border border-neutral-200 sm:rounded-lg tabela lg:-order-none order-2" >
+    <table class="w-full text-sm text-left text-gray-500 rounded-md ">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-        <tr>
+        <tr class="capitalize border-b border border-neutral-200">
           <th scope="col" class="px-6 py-4 w-[40%]">
             Nome
           </th>
@@ -21,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-white border-b" v-for="item in data">
+        <tr class="bg-white border-b capitalize " v-for="item in data" v-if="data.length">
           <th scope="row" class="px-6 py-4 font-normal  whitespace-nowrap capitalize">
             {{ item.nome }}
           </th>
@@ -38,6 +38,11 @@
             <button class="btn sm delete" @click="deleteItem(item.id)">Deletar</button>
           </td>
         </tr>
+        <tr class="bg-white border-b" v-else>
+          <th scope="row" class="px-6 py-4 font-normal  whitespace-nowrap text-center" colspan="12">
+            Não há itens cadastrados
+          </th>
+        </tr>
 
       </tbody>
     </table>
@@ -46,7 +51,7 @@
 
 
 <script setup>
-import {ref, computed} from 'vue'
+import {ref, computed, onMounted} from 'vue'
 import { doc, deleteDoc } from "firebase/firestore";
 import { database } from '../firebase';
 import { storeToRefs } from 'pinia';
@@ -57,6 +62,8 @@ import { useHomeStore } from '../store/home.store';
 const {data} = storeToRefs(useHomeStore())
 
 const {deleteItem} = useHomeStore();
+
+
 
 
 const props = defineProps(['data'])
@@ -74,17 +81,22 @@ const props = defineProps(['data'])
 </script>
 
 <style scoped>
-.tabela {
+/* .tabela {
   border: 1px solid #E6E6E6;
-}
+} */
 
 table th, table td{
   color: rgba(26, 26, 26, 1);
-  font-weight: 400;
   font-size: .875rem !important;
-  text-transform: capitalize;
 
+}
 
+table > th{
+  font-weight: 500;
+}
+
+table > td {
+  font-weight: 400;
 }
 
 .receita{

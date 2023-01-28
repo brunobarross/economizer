@@ -1,13 +1,9 @@
 import { ref, onMounted, computed, watch } from 'vue'
 import { defineStore,storeToRefs } from 'pinia'
 import { app, database } from '../firebase'
-import { getDocs, collection, query, doc, addDoc, where, onSnapshot } from 'firebase/firestore'
+import { getDocs, collection, query, doc, addDoc, where, onSnapshot, deleteDoc } from 'firebase/firestore'
 import router from '../router'
 import { useAuthStore } from './auth.store'
-const collectionRef = collection(database, 'itens')
-
-
-
 
 
 export const useHomeStore = defineStore('homeStore', () => {
@@ -17,22 +13,34 @@ export const useHomeStore = defineStore('homeStore', () => {
   const dataCriacao = ref(null)
   const valor = ref('')
   const situacao = ref('tabela')
+  
+  const {user} = storeToRefs(useAuthStore())
+  const collectionRef = collection(database, 'itens');
+ const  collectionRefQuery = (collection(database, 'itens'));
+
 
   async function getData() {
 
-    onSnapshot(collectionRef, (querySnapshot)=>{
+    onSnapshot(collectionRefQuery, (querySnapshot)=>{
+      console.log(user.value)
       const fbItens = []
+      let dadosFiltrados = [];
       querySnapshot.forEach((doc)=>{
+        console.log(doc.data())
         const item = {
           id: doc.id,
           nome: doc.data().nome,
           tipo: doc.data().tipo,
           valor: doc.data().valor,
           dataCriacao: doc.data().dataCriacao,
+          owner: doc.data().owner
         }
+ 
         fbItens.push(item)
+        dadosFiltrados = fbItens.filter((data)=> data.owner == user.value.uid)
+   
       })
-      data.value = fbItens
+      data.value = dadosFiltrados
     })
   
   }

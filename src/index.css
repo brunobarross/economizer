@@ -4,14 +4,16 @@
 
 @layer base{
   body{
+    @apply text-neutral-100;
     background-color: rgb(245 245 245 / 46%); 
     font-family: 'Inter', sans-serif;
+
   }
 }
 
 @layer components{
   .btn{
-    @apply flex items-center justify-center  outline-none px-3 py-2 bg-green-600 text-white rounded-md font-medium border border-transparent transition-all;
+    @apply flex items-center justify-center  outline-none px-3 py-2 bg-primary-dark text-white rounded-md font-medium border border-transparent transition-all;
   
   }
 
@@ -28,6 +30,6 @@
   }
 
   .card{
-    @apply bg-white rounded-lg shadow-md;
+    @apply bg-white rounded-lg border border-neutral-200  shadow-sm-custom;
   }
 }

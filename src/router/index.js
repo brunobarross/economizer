@@ -8,6 +8,7 @@ import Register from '../pages/Register.vue'
 import Login from '../pages/Login.vue'
 import Tabela from '../layouts/Tabela.vue'
 import CadastroItem from '../pages/CadastroItem.vue'
+import MinhaConta from '../pages/MinhaConta.vue'
 
 
 
@@ -18,6 +19,17 @@ const routes = [,
     name: 'Home',
     path: '/',
     component: Home,
+    meta: {
+      requireLogin: true
+    },
+
+    
+  },
+
+  {
+    name: 'Minha Conta',
+    path: '/minha-conta',
+    component: MinhaConta,
     meta: {
       requireLogin: true
     },
@@ -72,7 +84,6 @@ function getCurrentUser() {
 }
 
 router.beforeEach(async (to, from, next) => {
-  console.log(to)
   if (to.matched.some(record => record.meta.requireLogin == true)) {
     if (await getCurrentUser()) {
       next()

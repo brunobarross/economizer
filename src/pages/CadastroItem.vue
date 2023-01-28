@@ -1,10 +1,12 @@
 <template>
   <MainContainer>
-    <router-link to="/"><p class="text-lg font-medium">Voltar</p></router-link>
+    <router-link to="/">
+      <p class="text-lg font-medium"> Voltar</p>
+    </router-link>
     <div class="card p-6 !mt-8 md:!mt-16">
 
       <div class="header-card">
-        <p class="font-semibold text-sm text-green-600">Novo cadastro</p>
+        <p class="font-semibold text-sm text-primary-pure"> Novo cadastro</p>
         <h3 class="font-semibold text-2xl text-neutral-700 capitalize">{{ tipo }}</h3>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
@@ -31,6 +33,7 @@
 
       <div class="btn-container flex justify-end mt-6">
         <button class="btn w-full md:min-w-[128px] md:w-auto" @click="createNewItem(user.uid)">Salvar</button>
+        <p class="text-red-600 text-base mt-2"> {{ erro }}</p>
       </div>
 
     </div>
@@ -38,13 +41,19 @@
   </MainContainer>
 </template>
 
+
+
+
+
 <script setup>
-import { ref, defineEmits } from 'vue'
+
+import { ref, defineEmits, defineComponent } from 'vue'
 import { app, database } from '../firebase'
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '../store/auth.store';
 import { useHomeStore } from '../store/home.store';
 import MainContainer from '../layouts/MainContainer.vue';
+
 
 const { user } = storeToRefs(useAuthStore())
 

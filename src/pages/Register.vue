@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-col justify-center md:grid  md:grid-cols-2">
-    <div class="bg-green-600 w-full h-full  h-full hidden md:block"></div>
+    <div class="bg-primary-dark w-full h-full  h-full hidden md:block"></div>
     <div class="area h-full flex flex-col items-center justify-center p-8">
       <div class="mx-auto max-w-[300px] w-full">
         <div class="input-box w-full">
@@ -12,8 +12,11 @@
           <input type="password" class="shadow" v-model="senha" placeholder="Digite sua senha" />
         </div>
         <div class="btn-container w-full">
-          <button class="bg-green-600 text-white mt-6 transition-all hover:border-green-600 hover:bg-transparent hover:text-green-600" @click="createAccount">Cadastrar-se</button>
+          <button class="bg-primary-dark text-white mt-6 transition-all hover:border-primary-dark hover:bg-transparent hover:text-green-600" @click="createAccount">Cadastrar-se</button>
           {{ erro }}
+        </div>
+        <div class="area">
+          <p class="mt-2 text-sm">Já possui uma conta? <router-link to="/login"><span class="text-primary-dark font-medium">Entrar</span></router-link></p>
         </div>
 
       </div>

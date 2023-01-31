@@ -7,26 +7,23 @@ import { useAuthStore } from './auth.store'
 
 
 export const useHomeStore = defineStore('homeStore', () => {
-  const data = ref([]);
+  const dadosFiltrados = ref([]);
   const nome = ref('');
   const tipo = ref('receita')
   const dataCriacao = ref(null)
   const valor = ref('')
   const situacao = ref('tabela')
-  
   const {user} = storeToRefs(useAuthStore())
   const collectionRef = collection(database, 'itens');
  const  collectionRefQuery = (collection(database, 'itens'));
 
 
-  async function getData() {
 
+
+  async function getData() {
     onSnapshot(collectionRefQuery, (querySnapshot)=>{
-      console.log(user.value)
       const fbItens = []
-      let dadosFiltrados = [];
       querySnapshot.forEach((doc)=>{
-        console.log(doc.data())
         const item = {
           id: doc.id,
           nome: doc.data().nome,
@@ -37,10 +34,12 @@ export const useHomeStore = defineStore('homeStore', () => {
         }
  
         fbItens.push(item)
-        dadosFiltrados = fbItens.filter((data)=> data.owner == user.value.uid)
-   
       })
-      data.value = dadosFiltrados
+      dadosFiltrados.value = fbItens.filter((data)=> data.owner == user.value.uid)
+
+      console.log(dadosFiltrados.value);
+      
+      
     })
   
   }
@@ -77,5 +76,5 @@ async function deleteItem(id){
 
 
 
-  return { getData, data,createNewItem,nome,tipo,valor,dataCriacao,  situacao, deleteItem }
+  return { getData, dadosFiltrados,createNewItem,nome,tipo,valor,dataCriacao,  situacao, deleteItem }
 })

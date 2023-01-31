@@ -1,18 +1,21 @@
 <template>
   <MainContainer>
     <div class="card p-6 !mt-8 md:!mt-16">
-      <div class="input-box">
-        <label for="nome_usuario">Nome do perfil</label>
-        <input type="text" id="nome_usuario" v-model="dadosUsuario.nome" placeholder="Digite seu nome" />
-      </div>
-      <div class="input-box mt-6">
-        <label for="email_usuario">E-mail</label>
-        <input type="text" id="email_usuario" v-model="dadosUsuario.email"  disabled />
-      </div>
-      <div class="btn-container flex justify-end mt-6">
-        <button class="btn w-full md:min-w-[128px] md:w-auto" @click="editProfile">Salvar alterações</button>
-        <p class="text-red-600 text-base mt-2"> {{ erro }}</p>
-      </div>
+      <form @submit.prevent="handleSubmit(nome, email)">
+        <div class="input-box">
+          <label for="nome_usuario">Nome do perfil</label>
+          <input type="text" id="nome_usuario" v-model="nome" placeholder="Digite seu nome" />
+        </div>
+        <div class="input-box mt-6">
+          <label for="email_usuario">E-mail</label>
+          <input type="text" id="email_usuario" v-model="dadosUsuario.email" disabled />
+        </div>
+        <div class="btn-container flex justify-end mt-6">
+          <button class="btn w-full md:min-w-[128px] md:w-auto">Salvar alterações</button>
+          <p class="text-red-600 text-base mt-2"> {{ erro }}</p>
+        </div>
+      </form>
+
     </div>
   </MainContainer>
 </template>
@@ -24,14 +27,19 @@ import MainContainer from '../layouts/MainContainer.vue';
 import { storeToRefs } from 'pinia';
 import { usePerfilStore } from '../store/perfil.store'
 
-const {getData, editProfile} = usePerfilStore()
+const { editProfile } = usePerfilStore()
 
-const {dadosUsuario} = storeToRefs(usePerfilStore())
+const { dadosUsuario } = storeToRefs(usePerfilStore())
 
 
-onMounted(async ()=>{
-  await getData()
-})
+const nome = ref(dadosUsuario.nome)
+
+
+function handleSubmit(nomeVal){
+  editProfile(nomeVal)
+}
+
+
 
 </script>
 

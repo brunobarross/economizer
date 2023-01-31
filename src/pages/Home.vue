@@ -3,17 +3,21 @@
         <div class="flex flex-col md:pb-0 pb-16 ">
             <div class="flex flex-col mb-6 w-full">
                 <div class="flex justify-end">
-                    <router-link to="/cadastro"> <button class="btn">Adicionar novo</button></router-link>
-  
-
+                    <router-link to="/cadastro"> <button class="btn">
+                        Adicionar novo
+                        <font-awesome-icon icon="fa-solid fa-plus" class="ml-2" /> 
+                    </button></router-link>
+                  
                 </div>
             </div>
             <div class="grid-home">
-                <Tabela :data="data" @removeu="getData" />
+                <Tabela @removeu="getData" />
                 <div class="flex flex-col gap-4">
 
                     <div class="card p-6 sm">
-                        <h3 class="text-lg font-medium text-neutral-500 ">Total de Receitas</h3>
+                        <h3 class="text-lg font-medium text-neutral-500 flex items-center ">Total de Receitas
+                            <font-awesome-icon icon="fa-duotone fa-credit-card" />
+                        </h3>
                         <p class="text-2xl font-bold text-neutral-700 mt-2"> <span class="text-base ">R$</span> {{ totalReceita }}</p>
 
                     </div>
@@ -44,7 +48,7 @@ import MainContainer from '../layouts/MainContainer.vue';
 
 const { getData, updateSituation, situacao } = useHomeStore()
 
-const { data } = storeToRefs(useHomeStore())
+const { dadosFiltrados } = storeToRefs(useHomeStore())
 
 const { checkIfHasLogged } = useAuthStore()
 const { isAuthenticate, user } = storeToRefs(useAuthStore())
@@ -53,15 +57,13 @@ const { isAuthenticate, user } = storeToRefs(useAuthStore())
 onMounted(async () => {
     await checkIfHasLogged()
     await getData()
+
 })
 
 
-
-
-
-
 const totalDespesas = computed(() => {
-    const despesasArr = data.value.filter((i) => i.tipo == 'despesa').reduce((acc, i) => {
+    if(!dadosFiltrados.value) return
+    const despesasArr = dadosFiltrados.value.filter((i) => i.tipo == 'despesa').reduce((acc, i) => {
         return acc += i.valor
     }, 0)
 
@@ -70,17 +72,16 @@ const totalDespesas = computed(() => {
 
 
 const totalReceita = computed(() => {
-    const despesasArr = data.value.filter((i) => i.tipo == 'receita').reduce((acc, i) => {
+    if(!dadosFiltrados.value) return
+    const despesasArr = dadosFiltrados.value.filter((i) => i.tipo == 'receita').reduce((acc, i) => {
         return acc += i.valor
     }, 0)
-
+    
     return despesasArr.toFixed(2).replace('.', ',')
 })
 
 
 const saldoAtual = computed(() => {
-
-    console.log()
     return Number(totalReceita.value.replace(',', '.') - totalDespesas.value.replace(',', '.').replace('-', '')).toFixed(2).replace('.', ',')
 })
 

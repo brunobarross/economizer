@@ -21,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-white border-b capitalize " v-for="item in data" v-if="data.length">
+        <tr class="bg-white border-b capitalize " v-for="item in dadosFiltrados" v-if="dadosFiltrados.length">
           <th scope="row" class="px-6 py-4 font-normal  whitespace-nowrap capitalize">
             {{ item.nome }}
           </th>
@@ -35,9 +35,10 @@
             R$ {{ item.valor.toFixed(2).replace('.', ',') }}
           </td>
           <td class="px-6 py-4">
-            <button class="btn sm delete" @click="deleteItem(item.id)">Deletar</button>
+            <button class="btn sm delete !h-8" @click="deleteItem(item.id)"><font-awesome-icon :icon="['fa', 'trash']" /></button>
           </td>
         </tr>
+
         <tr class="bg-white border-b" v-else>
           <th scope="row" class="px-6 py-4 font-normal  whitespace-nowrap text-center" colspan="12">
             Não há itens cadastrados
@@ -59,14 +60,16 @@ import { useHomeStore } from '../store/home.store';
 
 
 
-const {data} = storeToRefs(useHomeStore())
+const {dadosFiltrados} = storeToRefs(useHomeStore())
 
 const {deleteItem} = useHomeStore();
 
 
+onMounted(async()=>{
+  console.log(dadosFiltrados.value)
+})
 
 
-const props = defineProps(['data'])
 
 
 // const timestampToDate = async (timestamp) => {

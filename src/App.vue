@@ -10,6 +10,7 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import { useAuthStore } from './store/auth.store';
+import { usePerfilStore } from './store/perfil.store';
 import router from './router';
 import { onMounted, computed } from 'vue';
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
@@ -18,6 +19,7 @@ const route = useRoute()
 
 const { checkIfHasLogged } = useAuthStore()
 const { isAuthenticate, user } = storeToRefs(useAuthStore())
+const {getDataProfile} = usePerfilStore();
 
 let auth = ''
 onMounted(async () => {
@@ -26,11 +28,14 @@ onMounted(async () => {
     if (userLogged) {
       isAuthenticate.value = true
       user.value = userLogged
+ 
     } else {
       isAuthenticate.value = false
       user.value = userLogged
     }
   })
+
+  getDataProfile(); 
 })
 
 const currentRouteName = computed(() => {

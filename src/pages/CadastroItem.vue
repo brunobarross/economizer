@@ -1,11 +1,10 @@
 <template>
   <MainContainer>
-    <router-link to="/">
-      <p class="text-lg font-medium"> Voltar</p>
-    </router-link>
+
+
     <div class="card p-6 !mt-8 md:!mt-16">
 
-      <div class="header-card">
+      <div class="header-card flex-row justify-between">
         <p class="font-semibold text-sm text-primary-pure"> Novo cadastro</p>
         <h3 class="font-semibold text-2xl text-neutral-700 capitalize">{{ tipo }}</h3>
       </div>
@@ -32,8 +31,11 @@
       </div>
 
       <div class="btn-container flex justify-end mt-6">
-        <button class="btn w-full md:min-w-[128px] md:w-auto" @click="createNewItem(user.uid)">Salvar</button>
-        <p class="text-red-600 text-base mt-2"> {{ erro }}</p>
+        <router-link to="/">
+          <button class="btn secondary w-full md:min-w-[128px] md:w-auto mr-2">Cancelar</button>
+        </router-link>
+        <button class=" btn w-full md:min-w-[128px] md:w-auto" @click="createNewItem(user.uid)">Salvar</button>
+          <p class="text-red-600 text-base mt-2"> {{ erro }}</p>
       </div>
 
     </div>

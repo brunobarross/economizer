@@ -26,6 +26,7 @@ const { logout } = useAuthStore()
 const { isAuthenticate, user } = storeToRefs(useAuthStore())
 const { dadosUsuario } = storeToRefs(usePerfilStore())
 
+
 </script>
 
 <style scoped>

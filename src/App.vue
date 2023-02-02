@@ -35,7 +35,8 @@ onMounted(async () => {
     }
   })
 
-  getDataProfile(); 
+  await getDataProfile(); 
+  
 })
 
 const currentRouteName = computed(() => {

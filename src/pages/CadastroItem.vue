@@ -21,7 +21,7 @@
           </select>
         </div>
         <div class="input-box">
-          <label for="data">Data de criação</label>
+          <label for="data">Data de referência</label>
           <input type="date" id="data" v-model="dataCriacao" placeholder="Digite a data" />
         </div>
         <div class="input-box">

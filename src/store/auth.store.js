@@ -7,6 +7,7 @@ import { createRouter } from 'vue-router'
 import { collection, addDoc } from 'firebase/firestore';
 
 import { useHomeStore } from './home.store';
+import { usePerfilStore } from './perfil.store';
 
 
 export const useAuthStore = defineStore('authStore', () => {
@@ -20,13 +21,11 @@ export const useAuthStore = defineStore('authStore', () => {
 
 
   const collectionRef = collection(database, 'users')
-
-
   const auth = getAuth();
+  
   function createAccount() {
     createUserWithEmailAndPassword(auth, email.value, senha.value)
       .then((userCredential) => {
-        // Signed in 
         const userInfo = userCredential.user;
         addDoc(collectionRef, {
           nome: userInfo.providerData[0].displayName,
@@ -59,6 +58,7 @@ export const useAuthStore = defineStore('authStore', () => {
   }
 
   async function loginInAccount() {
+    const {getDataProfile} = usePerfilStore()
     await signInWithEmailAndPassword(auth, email.value, senha.value)
       .then((userCredential) => {
         // Signed in 
@@ -67,6 +67,7 @@ export const useAuthStore = defineStore('authStore', () => {
         sessionStorage.setItem('token', userCredential.user.accessToken)
         sessionStorage.setItem('user', JSON.stringify(userCredential.user))
         resetValues()
+        getDataProfile()
         router.push('/')
 
       })
@@ -77,12 +78,12 @@ export const useAuthStore = defineStore('authStore', () => {
   }
 
   async function logout() {
-    const {data} = storeToRefs(useHomeStore())
+    const {dadosFiltrados} = storeToRefs(useHomeStore())
     signOut(auth).then(() => {
       // Sign-out successful.
       sessionStorage.removeItem('token')
       sessionStorage.removeItem('user')
-      data.value = []
+      dadosFiltrados.value = []
       router.push('/login')
     }).catch((error) => {
       console.log(error.message)

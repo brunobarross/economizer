@@ -24,7 +24,6 @@ export const usePerfilStore = defineStore('perfilStore', () => {
       let userLogged = {}
       let filtro = []
       querySnapshot.forEach((doc) => {
-        console.log(doc.data())
         const item = {
           id: doc.id,
           uid: doc.data().uid,
@@ -34,8 +33,10 @@ export const usePerfilStore = defineStore('perfilStore', () => {
 
         userLogged = item
 
-        
-        filtro = [userLogged].filter((usuario)=> usuario.uid === user.value.uid)
+        if(user.value){
+          filtro = [userLogged].filter((usuario)=> usuario.uid === user.value.uid)
+        }
+
 
 
 
@@ -50,9 +51,6 @@ export const usePerfilStore = defineStore('perfilStore', () => {
   async function editProfile(val1){
 
     const userToUpdate = doc(collectionRefQuery, dadosUsuario.value.id)
-
-    console.log(userToUpdate);
-
     updateDoc(userToUpdate,{
       nome: val1,
     })

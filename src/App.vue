@@ -17,7 +17,6 @@ import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import { storeToRefs } from 'pinia';
 const route = useRoute()
 
-const { checkIfHasLogged } = useAuthStore()
 const { isAuthenticate, user } = storeToRefs(useAuthStore())
 const {getDataProfile} = usePerfilStore();
 

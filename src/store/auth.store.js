@@ -45,17 +45,17 @@ export const useAuthStore = defineStore('authStore', () => {
 
   }
 
-  async function checkIfHasLogged() {
-    const sessionToken = sessionStorage.getItem('token')
-    const sessionUser = sessionStorage.getItem('user')
-    if (sessionToken && sessionUser) {
-      isAuthenticate.value = true
-      user.value = JSON.parse(sessionUser)
-    } else {
-      isAuthenticate.value = false
-      user.value = ''
-    }
-  }
+  // async function checkIfHasLogged() {
+  //   // const sessionToken = sessionStorage.getItem('token')
+  //   // const sessionUser = sessionStorage.getItem('user')
+  //   // if (sessionToken && sessionUser) {
+  //   //   isAuthenticate.value = true
+  //   //   user.value = JSON.parse(sessionUser)
+  //   // } else {
+  //   //   isAuthenticate.value = false
+  //   //   user.value = ''
+  //   // }
+  // }
 
   async function loginInAccount() {
     const {getDataProfile} = usePerfilStore()
@@ -64,8 +64,8 @@ export const useAuthStore = defineStore('authStore', () => {
         // Signed in 
         isAuthenticate.value = true
         token.value = userCredential.user.accessToken
-        sessionStorage.setItem('token', userCredential.user.accessToken)
-        sessionStorage.setItem('user', JSON.stringify(userCredential.user))
+        // sessionStorage.setItem('token', userCredential.user.accessToken)
+        // sessionStorage.setItem('user', JSON.stringify(userCredential.user))
         resetValues()
         getDataProfile()
         router.push('/')
@@ -81,9 +81,6 @@ export const useAuthStore = defineStore('authStore', () => {
     const {dadosFiltrados} = storeToRefs(useHomeStore())
     signOut(auth).then(() => {
       // Sign-out successful.
-      sessionStorage.removeItem('token')
-      sessionStorage.removeItem('user')
-      dadosFiltrados.value = []
       router.push('/login')
     }).catch((error) => {
       console.log(error.message)
@@ -98,6 +95,6 @@ export const useAuthStore = defineStore('authStore', () => {
   }
 
 
-  return { email, senha, createAccount, loginInAccount, isAuthenticate, user, checkIfHasLogged, erro, logout }
+  return { email, senha, createAccount, loginInAccount, isAuthenticate, user, erro, logout }
 })
 

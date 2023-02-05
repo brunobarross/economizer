@@ -29,7 +29,7 @@
             {{ item.tipo }}
           </td>
           <td class="px-6 py-4">
-            {{ item.data }}
+            {{ item.data_referencia}}
           </td>
           <td class="px-6 py-4" :class="item.tipo">
             R$ {{ item.valor.toFixed(2).replace('.', ',') }}

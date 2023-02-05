@@ -8,23 +8,32 @@
         <p class="font-semibold text-sm text-primary-pure"> Novo cadastro</p>
         <h3 class="font-semibold text-2xl text-neutral-700 capitalize">{{ tipo }}</h3>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-        <div class="input-box">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mt-8">
+        <div class="input-box col-span-6">
           <label for="nome">Nome</label>
           <input type="text" id="nome" v-model="nome" placeholder="Digite o nome" />
         </div>
-        <div class="input-box">
+        <div class="input-box col-span-6">
           <label for="tipo">Tipo</label>
           <select name="tipo" id="tipo" v-model="tipo">
             <option value="receita">Receita</option>
             <option value="despesa">Despesa</option>
           </select>
         </div>
-        <div class="input-box">
-          <label for="data">Data de referência</label>
-          <input type="date" id="data" v-model="dataCriacao" placeholder="Digite a data" />
+        <div class="input-box col-span-4">
+          <label for="mes_referencia">Mês de referência</label>
+          <select class="mes_referencia" v-model="mesReferencia">
+            <option value="" selected disabled>Selecionar</option>
+            <option :value="mes.nome
+            " v-for="mes in meses['2023']" :key="mes.id
+  ">{{ mes.nome }}</option>
+          </select>
         </div>
-        <div class="input-box">
+        <div class="input-box col-span-4">
+          <label for="data">Data de referência</label>
+          <input type="date" id="data" v-model="dataReferencia" placeholder="Digite a data" />
+        </div>
+        <div class="input-box col-span-4">
           <label for="valor">Valor</label>
           <input type="number" id="valor" placeholder="Digite o valor" v-model="valor" />
         </div>
@@ -35,7 +44,7 @@
           <button class="btn secondary w-full md:min-w-[128px] md:w-auto mr-2">Cancelar</button>
         </router-link>
         <button class=" btn w-full md:min-w-[128px] md:w-auto" @click="createNewItem(user.uid)">Salvar</button>
-          <p class="text-red-600 text-base mt-2"> {{ erro }}</p>
+        <p class="text-red-600 text-base mt-2"> {{ erro }}</p>
       </div>
 
     </div>
@@ -59,7 +68,7 @@ import MainContainer from '../layouts/MainContainer.vue';
 
 const { user } = storeToRefs(useAuthStore())
 
-const { nome, tipo, dataCriacao, valor } = storeToRefs(useHomeStore())
+const { nome, tipo, dataReferencia, valor, meses, mesReferencia } = storeToRefs(useHomeStore())
 const { createNewItem } = useHomeStore();
 
 /* valores dos inputs */
@@ -83,7 +92,7 @@ const emit = defineEmits(['changeSituation'])
 .input-box input,
 select {
   border-radius: 4px;
-  padding: .5rem 1rem;
+  padding: .5rem;
   outline: none;
   width: 100%;
   border: 1px solid #E6E6E6;

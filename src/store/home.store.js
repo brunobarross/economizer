@@ -17,6 +17,8 @@ export const useHomeStore = defineStore('homeStore', () => {
   const { user } = storeToRefs(useAuthStore())
   const collectionRef = collection(database, 'itens');
   const collectionRefQuery = (collection(database, 'itens'));
+  const erro = ref(false)
+  const erroTxt = ref('')
 
   const meses = ref({
     2023: [
@@ -101,7 +103,13 @@ export const useHomeStore = defineStore('homeStore', () => {
 
 
   async function createNewItem(usuario) {
-
+    if(!nome.value || !tipo.value || !valor.value || !dataReferencia.value){
+      erro.value = true
+      erroTxt.value = 'Todos os campos devem estar preenchidos.'
+      return
+    }
+    erro.value = false;
+    erroTxt.value = ''
     const obj = {
       nome: nome.value,
       tipo: tipo.value,
@@ -112,10 +120,13 @@ export const useHomeStore = defineStore('homeStore', () => {
     }
     await addDoc(collectionRef, obj)
       .then((response) => {
+        erro.value = false;
+        erroTxt.value = ''
         router.push('/')
       })
       .catch((err) => {
-        console.log(err.message)
+        erro.value = true
+       erroTxt.value = err.message
       })
   }
 
@@ -135,5 +146,5 @@ async function createNewMonth(){
 
 
 
-  return { getData, dadosFiltrados, createNewItem, nome, tipo, valor, dataReferencia, situacao, deleteItem, meses }
+  return { getData, dadosFiltrados, createNewItem, nome, tipo, valor, dataReferencia, situacao, deleteItem, meses, erro, erroTxt }
 })

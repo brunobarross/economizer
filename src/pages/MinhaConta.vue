@@ -1,10 +1,10 @@
 <template>
   <MainContainer>
     <div class="card p-6 !mt-8 md:!mt-16">
-      <form @submit.prevent="handleSubmit(nome, email)">
+      <form @submit.prevent="handleSubmit(dadosUsuario.nome, email)">
         <div class="input-box">
           <label for="nome_usuario">Nome do perfil</label>
-          <input type="text" id="nome_usuario" v-model="nome" placeholder="Digite seu nome" />
+          <input type="text" id="nome_usuario" v-model="dadosUsuario.nome" placeholder="Digite seu nome" />
         </div>
         <div class="input-box mt-6">
           <label for="email_usuario">E-mail</label>

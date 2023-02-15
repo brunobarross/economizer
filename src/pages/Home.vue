@@ -1,23 +1,13 @@
 <template>
     <MainContainer>
         <div class="flex flex-col md:pb-0 pb-16 ">
-            <div class="flex flex-col mb-6 w-full">
-                <div class="flex justify-between items-center">
-                    <div class="select-box">
-                        <label for="mes_referencia">Selecione um mês de referência:</label>
-                        <select class="mes_referencia">
-                            <option value="" selected disabled>Selecionar</option>
-                            <option :value="mes.nome
-                            " v-for="mes in meses['2023']" :key="mes.id
-">{{ mes.nome }}</option>
-                        </select>
-                    </div>
-                    <router-link to="/cadastro"> <button class="btn">
-                            Adicionar novo
-                            <font-awesome-icon icon="fa-solid fa-plus" class="ml-2" />
-                        </button></router-link>
+            <div class="flex items-center mb-6 ml-auto">
+                <router-link to="/cadastro">
+                    <button class="btn">
+                        Adicionar novo
+                        <font-awesome-icon icon="fa-solid fa-plus" class="ml-2" />
+                    </button></router-link>
 
-                </div>
             </div>
             <div class="grid-home">
                 <Tabela @removeu="getData" />
@@ -43,17 +33,20 @@
                 </div>
             </div>
         </div>
-    </MainContainer>
+</MainContainer>
+
 </template>
 
 <script setup>
+
+
 import { ref, computed, onMounted } from 'vue'
 import { useAuthStore } from '../store/auth.store';
 import { storeToRefs } from 'pinia';
 import Tabela from '../layouts/Tabela.vue'
 import { useHomeStore } from '../store/home.store';
 import MainContainer from '../layouts/MainContainer.vue';
-
+import TheModal from '../components/TheModal.vue';
 const { getData, updateSituation, situacao } = useHomeStore()
 
 const { dadosFiltrados, meses } = storeToRefs(useHomeStore())
@@ -104,8 +97,7 @@ const saldoAtual = computed(() => {
 
 }
 
-.select-box 
-select {
+.select-box select {
     border-radius: 4px;
     padding: .5rem;
     outline: none;

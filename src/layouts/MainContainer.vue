@@ -1,8 +1,7 @@
 <template>
-  <!-- <div class="sidebar bg-slate-500 min-h-screen w-[300px] fixed left-0"></div> -->
   <TheHeader />
   <div class="main px-6">
-    <div class="min-h-screen flex flex-col pt-40">
+    <div class="min-h-screen flex flex-col pt-32">
       <slot></slot>
     </div>
   </div>

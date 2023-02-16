@@ -1,7 +1,7 @@
 <h1>Economizer - Controle de finanças </h1>
   
-<p>Uma dashboard que criada para Os usuários possam controlar seus gastos, tendo a possibilidade adicionar receitas ou despesas.</p>
-<p>A aplicação foi desenvolvida utilizando Vue.js, Pinia para gerenciamento de estado, TailwindCSS pra estilização e Firebase para autenticação e armazenamento dos dados do usuário. </p> 
+<p>Uma dashboard que foi criada para que  os usuários possam controlar seus gastos, tendo a possibilidade adicionar receitas ou despesas.</p>
+<p>A aplicação foi desenvolvida utilizando Vue.js, composition API, Pinia para gerenciamento de estado, TailwindCSS pra estilização e Firebase para autenticação e armazenamento dos dados do usuário. </p> 
 
 ![Dashboard Games4free](preview.gif)
 

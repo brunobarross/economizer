@@ -5,18 +5,18 @@
 @layer base {
   body {
     @apply text-neutral-100;
-    background-color: rgb(245,245,245,100%);
+    background-color: rgb(245, 245, 245, 100%);
     font-family: 'Inter', sans-serif;
   }
 }
 
 @layer components {
   .btn {
-    @apply flex items-center justify-center  outline-none px-3 py-2 bg-primary-dark text-white rounded-md font-medium border border-transparent transition-all hover:-translate-y-1 ;
+    @apply flex items-center justify-center  outline-none px-3 py-2 bg-primary-dark text-white rounded-md font-medium border border-transparent transition-all hover:-translate-y-1;
   }
 
-  .btn.secondary{
-    @apply bg-white border-primary-dark text-primary-dark ;
+  .btn.secondary {
+    @apply bg-white border-primary-dark text-primary-dark;
   }
   .btn.sm {
     @apply min-w-max h-8 text-sm;
@@ -32,5 +32,10 @@
 
   .card {
     @apply bg-white rounded-lg border border-neutral-200  shadow-sm-custom;
+  }
+
+  .container-personalizado {
+    @apply my-0 mx-auto;
+    max-width: 1200px;
   }
 }

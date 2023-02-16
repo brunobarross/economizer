@@ -13,7 +13,10 @@ export const usePerfilStore = defineStore('perfilStore', () => {
       nome: '',
       email: '',
     });
+    const erro = ref(false)
+    const erroTxt = ref('')
 
+  
 
 
   const { user } = storeToRefs(useAuthStore())
@@ -55,8 +58,11 @@ export const usePerfilStore = defineStore('perfilStore', () => {
       nome: val1,
     })
     .then(()=>{
-      alert('certo')
       router.push('/')
+    })
+    .catch((err)=>{
+      erro.value = true
+      erroTxt.value = err.message
     })
   }
 

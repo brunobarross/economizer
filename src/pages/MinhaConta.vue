@@ -10,9 +10,10 @@
           <label for="email_usuario">E-mail</label>
           <input type="text" id="email_usuario" v-model="dadosUsuario.email" disabled />
         </div>
+        <p class="text-red-600 text-base mt-2"> {{ erroTxt}}</p>
         <div class="btn-container flex justify-end mt-6">
           <button class="btn w-full md:min-w-[128px] md:w-auto">Salvar alterações</button>
-          <p class="text-red-600 text-base mt-2"> {{ erro }}</p>
+      
         </div>
       </form>
 
@@ -29,7 +30,7 @@ import { usePerfilStore } from '../store/perfil.store'
 
 const { editProfile } = usePerfilStore()
 
-const { dadosUsuario } = storeToRefs(usePerfilStore())
+const { dadosUsuario, erro, erroTxt } = storeToRefs(usePerfilStore())
 
 
 const nome = ref(dadosUsuario.nome)
